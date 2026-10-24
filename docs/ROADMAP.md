@@ -16,11 +16,16 @@
 
 **Você aprende:** Aspire (AppHost e ServiceDefaults), estrutura de solução, GitHub Actions básico, ADRs.
 
-- [ ] Criar repositório público `motor-de-pagamentos` com `.gitignore` de .NET + Node, licença MIT e proteção da branch `main` (exigir PR + CI verde)
-- [ ] Copiar `docs/PROJECT_SPEC.md` e `docs/ROADMAP.md` para o repositório
-- [ ] Criar a solução .NET 10 com os projetos de `src/` e `tests/` conforme a seção 17 do spec (projetos vazios, referências corretas)
-- [ ] `PaymentEngine.AppHost` subindo Postgres (container) + `PaymentEngine.Api` com endpoint `/health`
-- [ ] `PaymentEngine.ServiceDefaults` com OpenTelemetry, health checks e resiliência padrão
+- [x] Criar repositório público `motor-de-pagamentos` com `.gitignore` (template VisualStudio) e licença MIT
+- [ ] Proteção da branch `main` (exigir PR + CI verde), depois que o CI existir
+- [x] `docs/PROJECT_SPEC.md` e `docs/ROADMAP.md` no repositório (o `CLAUDE.md` fica fora: o projeto não usa Claude Code)
+- [x] Solução .NET 10 com Domain, Application, Infrastructure e Api, com as referências corretas
+- [x] `PaymentEngine.AppHost` (em `src/`) subindo Postgres em container + `PaymentEngine.Api`
+- [x] `PaymentEngine.ServiceDefaults` com OpenTelemetry, health checks (`/health`, `/alive`) e resiliência padrão
+
+> **Decisão:** cada projeto (Worker, simulador, mensageria, front, testes) é criado na fase em que passa a ser usado.
+> Projeto vazio no repositório parece trabalho abandonado. As linhas de Node no `.gitignore` entram com o front (Fase 3).
+
 - [ ] `PaymentEngine.Architecture.Tests` com as regras de dependência entre camadas (já falhando se alguém quebrar)
 - [ ] `ci.yml`: restore, build, test em todo PR
 - [ ] `docs/adr/0000-template.md` (template na seção 18 do spec)
