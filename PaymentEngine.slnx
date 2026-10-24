@@ -7,4 +7,7 @@
     <Project Path="src/PaymentEngine.Infrastructure/PaymentEngine.Infrastructure.csproj" />
     <Project Path="src/PaymentEngine.ServiceDefaults/PaymentEngine.ServiceDefaults.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PaymentEngine.Architecture.Tests/PaymentEngine.Architecture.Tests.csproj" />
+  </Folder>
 </Solution>
