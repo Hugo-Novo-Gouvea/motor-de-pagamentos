@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PaymentEngine.Application\PaymentEngine.Application.csproj" />
     <ProjectReference Include="..\PaymentEngine.Infrastructure\PaymentEngine.Infrastructure.csproj" />
+    <ProjectReference Include="..\PaymentEngine.ServiceDefaults\PaymentEngine.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

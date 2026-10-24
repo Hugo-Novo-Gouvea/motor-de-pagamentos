@@ -1,8 +1,10 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/PaymentEngine.Api/PaymentEngine.Api.csproj" />
+    <Project Path="src/PaymentEngine.AppHost/PaymentEngine.AppHost.csproj" />
     <Project Path="src/PaymentEngine.Application/PaymentEngine.Application.csproj" />
     <Project Path="src/PaymentEngine.Domain/PaymentEngine.Domain.csproj" />
     <Project Path="src/PaymentEngine.Infrastructure/PaymentEngine.Infrastructure.csproj" />
+    <Project Path="src/PaymentEngine.ServiceDefaults/PaymentEngine.ServiceDefaults.csproj" />
   </Folder>
 </Solution>
