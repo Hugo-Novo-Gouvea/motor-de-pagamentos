@@ -27,7 +27,7 @@
 > Projeto vazio no repositório parece trabalho abandonado. As linhas de Node no `.gitignore` entram com o front (Fase 3).
 
 - [x] `PaymentEngine.Architecture.Tests` com as regras de dependência entre camadas (já falhando se alguém quebrar)
-- [ ] `ci.yml`: restore, build, test em todo PR
+- [x] `ci.yml`: restore, build, test em todo PR
 - [ ] `docs/adr/0000-template.md` (template na seção 18 do spec)
 - [ ] ADR-0001: usar ADRs para registrar decisões
 - [ ] ADR-0002: monólito modular + worker + simulador, e não microsserviços
