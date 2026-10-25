@@ -9,5 +9,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/PaymentEngine.Architecture.Tests/PaymentEngine.Architecture.Tests.csproj" />
+    <Project Path="tests/PaymentEngine.Domain.Tests/PaymentEngine.Domain.Tests.csproj" />
   </Folder>
 </Solution>
