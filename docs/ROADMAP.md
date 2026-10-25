@@ -81,7 +81,7 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 ### Deploy e documentação
 - [ ] Deploy da Api + Simulador + Postgres no Azure via Aspire (Container Apps)
 - [ ] Alerta de orçamento configurado na assinatura Azure
-- [ ] ADR: nenhum dado de cartão real / PCI fora de escopo
+- [x] ADR: nenhum dado de cartão real / PCI fora de escopo
 - [ ] ADR: dinheiro como `long` em unidades menores
 - [ ] ADR: estorno não devolve a tarifa
 - [ ] README: problema, arquitetura (diagrama), como rodar localmente, link da referência da API no ar
