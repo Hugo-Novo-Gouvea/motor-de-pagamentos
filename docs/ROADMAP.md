@@ -17,7 +17,7 @@
 **Você aprende:** Aspire (AppHost e ServiceDefaults), estrutura de solução, GitHub Actions básico, ADRs.
 
 - [x] Criar repositório público `motor-de-pagamentos` com `.gitignore` (template VisualStudio) e licença MIT
-- [x] Proteção da branch `main` (exigir PR + CI verde), depois que o CI existir
+- [x] Proteção da branch `main` com Ruleset: exige PR e o check `build-and-test` verde; bloqueia force push e exclusão
 - [x] `docs/PROJECT_SPEC.md` e `docs/ROADMAP.md` no repositório (o `CLAUDE.md` fica fora: o projeto não usa Claude Code)
 - [x] Solução .NET 10 com Domain, Application, Infrastructure e Api, com as referências corretas
 - [x] `PaymentEngine.AppHost` (em `src/`) subindo Postgres em container + `PaymentEngine.Api`
@@ -26,12 +26,13 @@
 > **Decisão:** cada projeto (Worker, simulador, mensageria, front, testes) é criado na fase em que passa a ser usado.
 > Projeto vazio no repositório parece trabalho abandonado. As linhas de Node no `.gitignore` entram com o front (Fase 3).
 
-- [x] `PaymentEngine.Architecture.Tests` com as regras de dependência entre camadas (já falhando se alguém quebrar)
-- [x] `ci.yml`: restore, build, test em todo PR
-- [ ] `docs/adr/0000-template.md` (template na seção 18 do spec)
-- [ ] ADR-0001: usar ADRs para registrar decisões
-- [ ] ADR-0002: monólito modular + worker + simulador, e não microsserviços
-- [ ] README inicial (em português): uma frase do que é, status "em construção", link para o roadmap
+- [x] `PaymentEngine.Architecture.Tests` com as regras de dependência entre camadas e pacotes técnicos (EF Core, ASP.NET, Npgsql)
+- [x] `ci.yml` (GitHub Actions): restore, build e testes em todo PR e em todo push na `main`
+- [x] `docs/adr/0000-template.md` (template na seção 18 do spec)
+- [x] ADR-0001: registrar decisões em ADRs
+- [x] ADR-0002: monólito modular + worker + simulador, e não microsserviços
+- [x] ADR-0003: Clean Architecture com quatro camadas
+- [x] README inicial (em português): uma frase do que é, status "em construção", link para o roadmap
 
 **Pronto quando:** `aspire run` sobe tudo, o dashboard do Aspire mostra a Api saudável e o CI passa no GitHub.
 
@@ -80,9 +81,9 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 ### Deploy e documentação
 - [ ] Deploy da Api + Simulador + Postgres no Azure via Aspire (Container Apps)
 - [ ] Alerta de orçamento configurado na assinatura Azure
-- [ ] ADR-0003: nenhum dado de cartão real / PCI fora de escopo
-- [ ] ADR-0004: dinheiro como `long` em unidades menores
-- [ ] ADR-0005: estorno não devolve a tarifa
+- [ ] ADR-0004: nenhum dado de cartão real / PCI fora de escopo
+- [ ] ADR-0005: dinheiro como `long` em unidades menores
+- [ ] ADR-0006: estorno não devolve a tarifa
 - [ ] README: problema, arquitetura (diagrama), como rodar localmente, link da referência da API no ar
 
 **Pronto quando:** qualquer pessoa consegue abrir a página Scalar no ar, ler a API e (com uma chave de demo
@@ -120,9 +121,9 @@ HMAC, backoff com jitter, circuit breaker, propagação de trace por mensagem.
 - [ ] Ponta a ponta com `Aspire.Hosting.Testing`: criar pagamento → webhook chega num receptor de teste
 
 ### Documentação
-- [ ] ADR-0006: outbox em vez de publicar direto na fila
-- [ ] ADR-0007: agendamento de retry no banco, não na fila
-- [ ] ADR-0008: fila simples em vez de tópico (custo e um só consumidor)
+- [ ] ADR-0007: outbox em vez de publicar direto na fila
+- [ ] ADR-0008: agendamento de retry no banco, não na fila
+- [ ] ADR-0009: fila simples em vez de tópico (custo e um só consumidor)
 - [ ] README: seção "Como funcionam os webhooks" com exemplo de verificação da assinatura em C#
 - [ ] Print do trace completo (POST → webhook) no README
 
@@ -162,7 +163,7 @@ endpoint fora do ar acumula tentativas até o dead-letter.
 - [ ] Playwright: fluxo completo do playground (aprovado, recusado, receptor instável)
 - [ ] Integração: requisição sem token → 401; token de `Viewer` tentando criar API key → 403
 - [ ] Deploy do front no Azure Static Web Apps, CORS restrito
-- [ ] ADR-0009: provedor de identidade externo, sem autenticação própria
+- [ ] ADR-0010: provedor de identidade externo, sem autenticação própria
 - [ ] README: link "Teste ao vivo" no topo + GIF do playground (gravado pelo Playwright)
 
 **Pronto quando:** o link do README abre o playground, um visitante faz um pagamento, vê a timeline, derruba o
@@ -215,7 +216,7 @@ notificações externas, casos de borda de pagamento instantâneo.
 - [ ] Casos de borda: pagamento após vencimento e valor divergente geram devolução automática
 - [ ] Playground: aba "Pagar com Pix" com QR Code e botão "Pagar pelo app do banco"
 - [ ] Teste de integração: a mesma notificação enviada 5 vezes credita uma única vez
-- [ ] ADR-0010: Pix simulado a partir dos conceitos da API do Banco Central, sem conformidade oficial
+- [ ] ADR-0011: Pix simulado a partir dos conceitos da API do Banco Central, sem conformidade oficial
 - [ ] README: seção "Pix" com GIF do pagamento acontecendo
 
 **Pronto quando:** um visitante do playground gera uma cobrança Pix, "paga pelo app", vê a cobrança concluir, o
@@ -237,7 +238,7 @@ lançamento aparecer no ledger e o webhook chegar.
 - [ ] RDS Postgres, Secrets Manager, IAM roles com menor privilégio
 - [ ] Front no S3 + CloudFront
 - [ ] Workflows `deploy-aws.yml` e `destroy-aws.yml` manuais
-- [ ] ADR-0011: AWS sob demanda por custo
+- [ ] ADR-0012: AWS sob demanda por custo
 - [ ] README: seção "Roda no Azure e na AWS" com o diagrama das duas topologias
 
 **Pronto quando:** um clique no workflow sobe o Motor de Pagamentos na AWS, o playground funciona lá, e outro clique destrói tudo.
