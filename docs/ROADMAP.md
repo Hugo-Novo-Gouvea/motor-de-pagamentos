@@ -29,9 +29,9 @@
 - [x] `PaymentEngine.Architecture.Tests` com as regras de dependência entre camadas e pacotes técnicos (EF Core, ASP.NET, Npgsql)
 - [x] `ci.yml` (GitHub Actions): restore, build e testes em todo PR e em todo push na `main`
 - [x] `docs/adr/0000-template.md` (template na seção 18 do spec)
-- [x] ADR-0001: registrar decisões em ADRs
-- [x] ADR-0002: monólito modular + worker + simulador, e não microsserviços
-- [x] ADR-0003: Clean Architecture com quatro camadas
+- [x] ADR: registrar decisões em ADRs
+- [x] ADR: monólito modular + worker + simulador, e não microsserviços
+- [x] ADR: Clean Architecture com quatro camadas
 - [x] README inicial (em português): uma frase do que é, status "em construção", link para o roadmap
 
 **Pronto quando:** `aspire run` sobe tudo, o dashboard do Aspire mostra a Api saudável e o CI passa no GitHub.
@@ -81,9 +81,9 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 ### Deploy e documentação
 - [ ] Deploy da Api + Simulador + Postgres no Azure via Aspire (Container Apps)
 - [ ] Alerta de orçamento configurado na assinatura Azure
-- [ ] ADR-0004: nenhum dado de cartão real / PCI fora de escopo
-- [ ] ADR-0005: dinheiro como `long` em unidades menores
-- [ ] ADR-0006: estorno não devolve a tarifa
+- [ ] ADR: nenhum dado de cartão real / PCI fora de escopo
+- [ ] ADR: dinheiro como `long` em unidades menores
+- [ ] ADR: estorno não devolve a tarifa
 - [ ] README: problema, arquitetura (diagrama), como rodar localmente, link da referência da API no ar
 
 **Pronto quando:** qualquer pessoa consegue abrir a página Scalar no ar, ler a API e (com uma chave de demo
@@ -121,9 +121,9 @@ HMAC, backoff com jitter, circuit breaker, propagação de trace por mensagem.
 - [ ] Ponta a ponta com `Aspire.Hosting.Testing`: criar pagamento → webhook chega num receptor de teste
 
 ### Documentação
-- [ ] ADR-0007: outbox em vez de publicar direto na fila
-- [ ] ADR-0008: agendamento de retry no banco, não na fila
-- [ ] ADR-0009: fila simples em vez de tópico (custo e um só consumidor)
+- [ ] ADR: outbox em vez de publicar direto na fila
+- [ ] ADR: agendamento de retry no banco, não na fila
+- [ ] ADR: fila simples em vez de tópico (custo e um só consumidor)
 - [ ] README: seção "Como funcionam os webhooks" com exemplo de verificação da assinatura em C#
 - [ ] Print do trace completo (POST → webhook) no README
 
@@ -163,7 +163,7 @@ endpoint fora do ar acumula tentativas até o dead-letter.
 - [ ] Playwright: fluxo completo do playground (aprovado, recusado, receptor instável)
 - [ ] Integração: requisição sem token → 401; token de `Viewer` tentando criar API key → 403
 - [ ] Deploy do front no Azure Static Web Apps, CORS restrito
-- [ ] ADR-0010: provedor de identidade externo, sem autenticação própria
+- [ ] ADR: provedor de identidade externo, sem autenticação própria
 - [ ] README: link "Teste ao vivo" no topo + GIF do playground (gravado pelo Playwright)
 
 **Pronto quando:** o link do README abre o playground, um visitante faz um pagamento, vê a timeline, derruba o
