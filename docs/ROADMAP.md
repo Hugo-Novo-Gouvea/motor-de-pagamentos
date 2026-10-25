@@ -17,7 +17,7 @@
 **Você aprende:** Aspire (AppHost e ServiceDefaults), estrutura de solução, GitHub Actions básico, ADRs.
 
 - [x] Criar repositório público `motor-de-pagamentos` com `.gitignore` (template VisualStudio) e licença MIT
-- [ ] Proteção da branch `main` (exigir PR + CI verde), depois que o CI existir
+- [x] Proteção da branch `main` (exigir PR + CI verde), depois que o CI existir
 - [x] `docs/PROJECT_SPEC.md` e `docs/ROADMAP.md` no repositório (o `CLAUDE.md` fica fora: o projeto não usa Claude Code)
 - [x] Solução .NET 10 com Domain, Application, Infrastructure e Api, com as referências corretas
 - [x] `PaymentEngine.AppHost` (em `src/`) subindo Postgres em container + `PaymentEngine.Api`
