@@ -46,7 +46,7 @@
 otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy com Aspire no Azure.
 
 ### Domínio
-- [ ] `Money` + `Currency` com testes (soma, subtração, moedas diferentes, arredondamento)
+- [x] `Money` + `Currency` com testes (soma, subtração, moedas diferentes, arredondamento)
 - [ ] Agregado `Payment` com a máquina de estados da seção 5.3 e testes de **todas** as transições (válidas e inválidas)
 - [ ] Cálculo de tarifa (`FeePolicy`) com testes
 - [ ] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura, cancelamento e estorno
