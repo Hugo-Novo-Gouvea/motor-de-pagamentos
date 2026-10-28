@@ -14,7 +14,6 @@ public sealed record Money(long MinorUnits, Currency Currency)
         return new Money(MinorUnits - other.MinorUnits, Currency);
     }
 
-    // Banker's rounding: on an exact tie (.5), round to the nearest even number.
     public Money MultiplyBy(decimal factor)
     {
         var result = Math.Round(MinorUnits * factor, MidpointRounding.ToEven);
