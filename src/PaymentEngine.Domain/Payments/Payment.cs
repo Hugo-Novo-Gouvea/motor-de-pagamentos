@@ -47,4 +47,35 @@ public sealed class Payment
         var payment = new Payment(Guid.CreateVersion7(now), merchantId, amount, captureMethod, now);
         return Result<Payment>.Success(payment);
     }
+
+    public Result ApproveByAcquirer(DateTimeOffset now)
+    {
+        if (Status != PaymentStatus.Pending)
+        {
+            return Result.Failure(PaymentErrors.NotPending);
+        }
+
+        Status = CaptureMethod == CaptureMethod.Automatic
+            ? PaymentStatus.Captured
+            : PaymentStatus.Authorized;
+        UpdatedAt = now;
+
+        return Result.Success();
+    }
+
+    public Result DeclineByAcquirer(string failureCode, DateTimeOffset now)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(failureCode);
+
+        if (Status != PaymentStatus.Pending)
+        {
+            return Result.Failure(PaymentErrors.NotPending);
+        }
+
+        Status = PaymentStatus.Failed;
+        FailureCode = failureCode;
+        UpdatedAt = now;
+
+        return Result.Success();
+    }
 }
