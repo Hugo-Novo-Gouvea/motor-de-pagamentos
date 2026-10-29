@@ -88,4 +88,14 @@ public class MoneyTests
 
         result.ShouldBe(new Money(expected, Currency.BRL));
     }
+
+    [Theory]
+    [InlineData(0)]   // the default value of any enum: a currency nobody filled in
+    [InlineData(123)] // a number that has no name in the enum
+    public void Constructor_UndefinedCurrency_ThrowsArgumentOutOfRangeException(int currencyCode)
+    {
+        var currency = (Currency)currencyCode;
+
+        Should.Throw<ArgumentOutOfRangeException>(() => new Money(1050, currency));
+    }
 }
