@@ -47,11 +47,11 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 
 ### Domínio
 - [x] `Money` + `Currency` com testes (soma, subtração, moedas diferentes, arredondamento)
+- [x] Result pattern para erros de negócio
 - [ ] Agregado `Payment` com a máquina de estados da seção 5.3 e testes de **todas** as transições (válidas e inválidas)
 - [ ] Cálculo de tarifa (`FeePolicy`) com testes
 - [ ] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura, cancelamento e estorno
 - [ ] Teste de propriedade (FsCheck): sequências aleatórias de operações válidas sempre mantêm débitos = créditos
-- [ ] Result pattern para erros de negócio
 
 ### Simulador do adquirente
 - [ ] `PaymentEngine.AcquirerSimulator` com `authorize`, `capture`, `void`, `refund`, `GET transactions/{id}`
