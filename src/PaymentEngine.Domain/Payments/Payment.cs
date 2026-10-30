@@ -78,4 +78,30 @@ public sealed class Payment
 
         return Result.Success();
     }
+
+    public Result Capture(DateTimeOffset now)
+    {
+        if (Status != PaymentStatus.Authorized)
+        {
+            return Result.Failure(PaymentErrors.NotAuthorized);
+        }
+
+        Status = PaymentStatus.Captured;
+        UpdatedAt = now;
+
+        return Result.Success();
+    }
+
+    public Result Cancel(DateTimeOffset now)
+    {
+        if (Status != PaymentStatus.Authorized)
+        {
+            return Result.Failure(PaymentErrors.NotAuthorized);
+        }
+
+        Status = PaymentStatus.Canceled;
+        UpdatedAt = now;
+
+        return Result.Success();
+    }
 }

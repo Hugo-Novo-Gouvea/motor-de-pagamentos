@@ -31,6 +31,10 @@ internal static class TestPayments
             case PaymentStatus.Failed:
                 payment.DeclineByAcquirer("card_declined", CreatedAt);
                 break;
+            case PaymentStatus.Canceled:
+                payment.ApproveByAcquirer(CreatedAt);
+                payment.Cancel(CreatedAt);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(status), status, "No test path to this status yet.");
         }
