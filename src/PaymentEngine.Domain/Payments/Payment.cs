@@ -104,4 +104,37 @@ public sealed class Payment
 
         return Result.Success();
     }
+
+    public Result Refund(Money amount, DateTimeOffset now)
+    {
+        if (amount.Currency != Amount.Currency)
+        {
+            throw new CurrencyMismatchException(Amount.Currency, amount.Currency);
+        }
+
+        if (Status is not (PaymentStatus.Captured or PaymentStatus.PartiallyRefunded))
+        {
+            return Result.Failure(PaymentErrors.NotRefundable);
+        }
+
+        if (amount.MinorUnits <= 0)
+        {
+            return Result.Failure(PaymentErrors.RefundAmountMustBePositive);
+        }
+
+        var remaining = Amount.Subtract(AmountRefunded);
+
+        if (amount.MinorUnits > remaining.MinorUnits)
+        {
+            return Result.Failure(PaymentErrors.RefundExceedsRemaining);
+        }
+
+        AmountRefunded = AmountRefunded.Add(amount);
+        Status = AmountRefunded == Amount
+            ? PaymentStatus.Refunded
+            : PaymentStatus.PartiallyRefunded;
+        UpdatedAt = now;
+
+        return Result.Success();
+    }
 }

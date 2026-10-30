@@ -50,6 +50,8 @@ public class PaymentAcquirerResponseTests
     [InlineData(PaymentStatus.Captured)]
     [InlineData(PaymentStatus.Failed)]
     [InlineData(PaymentStatus.Canceled)]
+    [InlineData(PaymentStatus.PartiallyRefunded)]
+    [InlineData(PaymentStatus.Refunded)]
     public void ApproveByAcquirer_NotPending_ReturnsNotPendingAndChangesNothing(PaymentStatus status)
     {
         var payment = TestPayments.InStatus(status);
@@ -66,6 +68,8 @@ public class PaymentAcquirerResponseTests
     [InlineData(PaymentStatus.Captured)]
     [InlineData(PaymentStatus.Failed)]
     [InlineData(PaymentStatus.Canceled)]
+    [InlineData(PaymentStatus.PartiallyRefunded)]
+    [InlineData(PaymentStatus.Refunded)]
     public void DeclineByAcquirer_NotPending_ReturnsNotPendingAndChangesNothing(PaymentStatus status)
     {
         var payment = TestPayments.InStatus(status);

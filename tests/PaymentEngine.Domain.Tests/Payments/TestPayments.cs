@@ -6,12 +6,18 @@ namespace PaymentEngine.Domain.Tests.Payments;
 // so a test can never create a payment in a state the domain would not allow.
 internal static class TestPayments
 {
+    public const long AmountInCents = 10_000;       // R$ 100,00
+
+    public const long PartialRefundInCents = 3_000; // R$ 30,00
+
     public static readonly Guid MerchantId = Guid.NewGuid();
 
     public static readonly DateTimeOffset CreatedAt = new(2026, 10, 29, 12, 0, 0, TimeSpan.Zero);
 
+    public static Money Brl(long minorUnits) => new(minorUnits, Currency.BRL);
+
     public static Payment Pending(CaptureMethod captureMethod = CaptureMethod.Manual) =>
-        Payment.Create(MerchantId, new Money(10_000, Currency.BRL), captureMethod, CreatedAt).Value;
+        Payment.Create(MerchantId, Brl(AmountInCents), captureMethod, CreatedAt).Value;
 
     public static Payment InStatus(PaymentStatus status)
     {
@@ -35,8 +41,18 @@ internal static class TestPayments
                 payment.ApproveByAcquirer(CreatedAt);
                 payment.Cancel(CreatedAt);
                 break;
+            case PaymentStatus.PartiallyRefunded:
+                payment = Pending(CaptureMethod.Automatic);
+                payment.ApproveByAcquirer(CreatedAt);
+                payment.Refund(Brl(PartialRefundInCents), CreatedAt);
+                break;
+            case PaymentStatus.Refunded:
+                payment = Pending(CaptureMethod.Automatic);
+                payment.ApproveByAcquirer(CreatedAt);
+                payment.Refund(Brl(AmountInCents), CreatedAt);
+                break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(status), status, "No test path to this status yet.");
+                throw new ArgumentOutOfRangeException(nameof(status), status, "No test path to this status.");
         }
 
         if (payment.Status != status)

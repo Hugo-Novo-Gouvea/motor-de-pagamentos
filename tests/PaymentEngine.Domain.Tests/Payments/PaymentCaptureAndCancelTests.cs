@@ -37,6 +37,8 @@ public class PaymentCaptureAndCancelTests
     [InlineData(PaymentStatus.Captured)]
     [InlineData(PaymentStatus.Failed)]
     [InlineData(PaymentStatus.Canceled)]
+    [InlineData(PaymentStatus.PartiallyRefunded)]
+    [InlineData(PaymentStatus.Refunded)]
     public void Capture_NotAuthorized_ReturnsNotAuthorizedAndChangesNothing(PaymentStatus status)
     {
         var payment = TestPayments.InStatus(status);
@@ -53,6 +55,8 @@ public class PaymentCaptureAndCancelTests
     [InlineData(PaymentStatus.Captured)]
     [InlineData(PaymentStatus.Failed)]
     [InlineData(PaymentStatus.Canceled)]
+    [InlineData(PaymentStatus.PartiallyRefunded)]
+    [InlineData(PaymentStatus.Refunded)]
     public void Cancel_NotAuthorized_ReturnsNotAuthorizedAndChangesNothing(PaymentStatus status)
     {
         var payment = TestPayments.InStatus(status);
