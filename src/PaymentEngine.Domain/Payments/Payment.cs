@@ -39,14 +39,22 @@ public sealed class Payment
             throw new ArgumentOutOfRangeException(nameof(captureMethod), captureMethod, "Unknown capture method.");
         }
 
-        if (amount.MinorUnits <= 0)
+        if (amount.MinorUnits < MinimumAmountFor(amount.Currency).MinorUnits)
         {
-            return Result<Payment>.Failure(PaymentErrors.AmountMustBePositive);
+            return Result<Payment>.Failure(PaymentErrors.AmountBelowMinimum);
         }
 
         var payment = new Payment(Guid.CreateVersion7(now), merchantId, amount, captureMethod, now);
         return Result<Payment>.Success(payment);
     }
+
+    // The smallest payment accepted in each currency. With the default fee, the merchant always receives something.
+    public static Money MinimumAmountFor(Currency currency) => currency switch
+    {
+        Currency.BRL => new Money(50, Currency.BRL),
+        Currency.USD => new Money(50, Currency.USD),
+        _ => throw new ArgumentOutOfRangeException(nameof(currency), currency, "No minimum amount for this currency."),
+    };
 
     public Result ApproveByAcquirer(DateTimeOffset now)
     {

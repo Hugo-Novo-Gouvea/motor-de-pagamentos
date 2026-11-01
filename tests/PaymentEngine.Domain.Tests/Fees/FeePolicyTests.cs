@@ -1,5 +1,6 @@
 using System.Globalization;
 using PaymentEngine.Domain.Fees;
+using PaymentEngine.Domain.Payments;
 using Shouldly;
 
 namespace PaymentEngine.Domain.Tests.Fees;
@@ -26,6 +27,16 @@ public class FeePolicyTests
     {
         FeePolicy.Default.Percentage.ShouldBe(0.029m);
         FeePolicy.Default.Fixed.ShouldBe(new Money(30, Currency.BRL));
+    }
+
+    [Fact]
+    public void Calculate_DefaultPolicyOnMinimumPaymentAmount_LeavesSomethingForTheMerchant()
+    {
+        var minimum = Payment.MinimumAmountFor(Currency.BRL);
+
+        var fee = FeePolicy.Default.Calculate(minimum);
+
+        fee.MinorUnits.ShouldBeLessThan(minimum.MinorUnits);
     }
 
     [Fact]

@@ -2,9 +2,9 @@ namespace PaymentEngine.Domain.Payments;
 
 public static class PaymentErrors
 {
-    public static readonly Error AmountMustBePositive = new(
-        "payment.amount_must_be_positive",
-        "The payment amount must be greater than zero.");
+        public static readonly Error AmountBelowMinimum = new(
+        "payment.amount_below_minimum",
+        "The payment amount is below the minimum for its currency.");
 
     public static readonly Error NotPending = new(
         "payment.not_pending",
