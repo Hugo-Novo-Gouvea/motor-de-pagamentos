@@ -30,14 +30,43 @@ public class PaymentCreateTests
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(-1)]
-    public void Create_AmountNotPositive_ReturnsAmountMustBePositive(long minorUnits)
+    [InlineData(49, Currency.BRL)] // one cent below the minimum
+    [InlineData(49, Currency.USD)]
+    [InlineData(0, Currency.BRL)]
+    [InlineData(-1, Currency.BRL)]
+    public void Create_AmountBelowMinimum_ReturnsAmountBelowMinimum(long minorUnits, Currency currency)
     {
-        var result = Payment.Create(MerchantId, new Money(minorUnits, Currency.BRL), CaptureMethod.Manual, Now);
+        var result = Payment.Create(MerchantId, new Money(minorUnits, currency), CaptureMethod.Manual, Now);
 
         result.IsFailure.ShouldBeTrue();
-        result.Error.ShouldBe(PaymentErrors.AmountMustBePositive);
+        result.Error.ShouldBe(PaymentErrors.AmountBelowMinimum);
+    }
+
+    [Theory]
+    [InlineData(Currency.BRL)]
+    [InlineData(Currency.USD)]
+    public void Create_AmountExactlyAtMinimum_IsAccepted(Currency currency)
+    {
+        var result = Payment.Create(MerchantId, new Money(50, currency), CaptureMethod.Manual, Now);
+
+        result.IsSuccess.ShouldBeTrue();
+    }
+
+    [Theory]
+    [InlineData(Currency.BRL)]
+    [InlineData(Currency.USD)]
+    public void MinimumAmountFor_Currency_IsFiftyMinorUnits(Currency currency)
+    {
+        Payment.MinimumAmountFor(currency).ShouldBe(new Money(50, currency));
+    }
+
+    [Fact]
+    public void MinimumAmountFor_EveryCurrency_HasAPositiveMinimum()
+    {
+        foreach (var currency in Enum.GetValues<Currency>())
+        {
+            Payment.MinimumAmountFor(currency).MinorUnits.ShouldBeGreaterThan(0L);
+        }
     }
 
     [Theory]
