@@ -49,7 +49,7 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 - [x] `Money` + `Currency` com testes (soma, subtração, moedas diferentes, arredondamento)
 - [x] Result pattern para erros de negócio
 - [x] Agregado `Payment` com a máquina de estados da seção 5.3 e testes de **todas** as transições (válidas e inválidas)
-- [ ] Cálculo de tarifa (`FeePolicy`) com testes
+- [x] Cálculo de tarifa (`FeePolicy`) com testes
 - [ ] Valor mínimo de pagamento no `Payment.Create`, para a tarifa nunca passar do valor (spec + ADR)
 - [ ] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura, cancelamento e estorno
 - [ ] Teste de propriedade (FsCheck): sequências aleatórias de operações válidas sempre mantêm débitos = créditos
