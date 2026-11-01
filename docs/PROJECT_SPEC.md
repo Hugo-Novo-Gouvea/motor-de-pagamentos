@@ -149,6 +149,9 @@ Campos: `Id`, `MerchantId`, `Amount (Money)`, `Status`, `CaptureMethod (Automati
 `CardLast4`, `Description`, `Metadata (dict)`, `AcquirerTransactionId`, `AcquirerOutcomeUnknown`,
 `FailureCode`, `AmountRefunded`, `CreatedAt`, `UpdatedAt`, `Version` (concorrência otimista).
 
+**Valor mínimo:** 50 unidades menores por moeda (R$ 0,50, US$ 0,50). Abaixo disso, o `Create` devolve
+`Result.Failure` (`payment.amount_below_minimum`). Com a tarifa padrão, o lojista sempre recebe um valor positivo (ADR-0005).
+
 **Máquina de estados:**
 
 | De | Ação | Para | Evento |
