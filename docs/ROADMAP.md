@@ -51,7 +51,7 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 - [x] Agregado `Payment` com a máquina de estados da seção 5.3 e testes de **todas** as transições (válidas e inválidas)
 - [x] Cálculo de tarifa (`FeePolicy`) com testes
 - [x] Valor mínimo de pagamento no `Payment.Create`, para a tarifa nunca passar do valor (spec + ADR)
-- [x] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura, cancelamento e estorno
+- [x] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura e estorno (cancelamento não gera lançamento)
 - [ ] Teste de propriedade (FsCheck): sequências aleatórias de operações válidas sempre mantêm débitos = créditos
 
 ### Simulador do adquirente
