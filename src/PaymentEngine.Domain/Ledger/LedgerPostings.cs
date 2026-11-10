@@ -32,4 +32,25 @@ public static class LedgerPostings
 
         return JournalEntry.Create(payment.MerchantId, payment.Id, JournalEntryType.Capture, lines, now);
     }
+
+    // The fee is not returned on a refund: the merchant gives back the full amount (see the ADR).
+    public static JournalEntry ForRefund(Payment payment, Money amount, DateTimeOffset now)
+    {
+        ArgumentNullException.ThrowIfNull(payment);
+        ArgumentNullException.ThrowIfNull(amount);
+
+        if (payment.Status is not (PaymentStatus.PartiallyRefunded or PaymentStatus.Refunded))
+        {
+            throw new InvalidOperationException(
+                $"Cannot post a refund for a payment in status {payment.Status}.");
+        }
+
+        var lines = new List<JournalLine>
+        {
+            JournalLine.Debit(AccountCode.MerchantPending(payment.MerchantId), amount),
+            JournalLine.Credit(AccountCode.AcquirerPayable, amount),
+        };
+
+        return JournalEntry.Create(payment.MerchantId, payment.Id, JournalEntryType.Refund, lines, now);
+    }
 }
