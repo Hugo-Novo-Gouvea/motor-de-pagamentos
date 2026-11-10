@@ -51,7 +51,7 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 - [x] Agregado `Payment` com a máquina de estados da seção 5.3 e testes de **todas** as transições (válidas e inválidas)
 - [x] Cálculo de tarifa (`FeePolicy`) com testes
 - [x] Valor mínimo de pagamento no `Payment.Create`, para a tarifa nunca passar do valor (spec + ADR)
-- [ ] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura, cancelamento e estorno
+- [x] `JournalEntry` / `JournalLine` com invariante de balanceamento; lançamentos de captura, cancelamento e estorno
 - [ ] Teste de propriedade (FsCheck): sequências aleatórias de operações válidas sempre mantêm débitos = créditos
 
 ### Simulador do adquirente
@@ -85,7 +85,7 @@ otimista, idempotência, Testcontainers, resiliência de cliente HTTP, deploy co
 - [ ] ADR: nenhum dado de cartão real / PCI fora de escopo
 - [x] ADR: dinheiro como `long` em unidades menores
 - [x] ADR: valor mínimo de pagamento (a tarifa nunca passa do valor)
-- [ ] ADR: estorno não devolve a tarifa
+- [x] ADR: estorno não devolve a tarifa
 - [ ] README: problema, arquitetura (diagrama), como rodar localmente, link da referência da API no ar
 
 **Pronto quando:** qualquer pessoa consegue abrir a página Scalar no ar, ler a API e (com uma chave de demo
