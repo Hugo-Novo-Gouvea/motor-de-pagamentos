@@ -202,10 +202,17 @@ Liquidação (simulada em D+2):
   D merchant_pending:{m}          96,80
   C merchant_available:{m}        96,80
 
-Estorno total de R$ 100,00 (tarifa não é devolvida — decisão documentada em ADR):
-  D merchant_available:{m}       100,00
+Estorno total de R$ 100,00 antes da liquidação (tarifa não é devolvida — ADR-0006):
+  D merchant_pending:{m}         100,00
   C acquirer_payable             100,00
 ```
+
+**Estorno e liquidação:** o estorno debita a conta onde o dinheiro do lojista está no momento: `merchant_pending`
+antes da liquidação e `merchant_available` depois dela. Enquanto a liquidação não existe (Fase 4), todo estorno
+debita `merchant_pending`.
+
+**Cancelamento:** cancelar uma autorização (`Authorized` → `Canceled`) não gera lançamento no ledger, porque nenhum
+dinheiro se moveu.
 
 ### 5.5 Webhooks
 
